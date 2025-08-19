@@ -5,7 +5,7 @@
   "license": "MIT",
   "type": "module",
   "bin": {
-    "gd-pkg-json": "dist/bin/PkgJsonRunner.js"
+    "gdframe-pkg-json": "dist/bin/PkgJsonRunner.js"
   },
   "scripts": {
     "build": "tsc && tsc-alias",
@@ -18,9 +18,7 @@
     "minimist": "^1.2.8",
     "ts-node": "^10.9.0",
     "tsc-alias": "^1.8.0",
-    "typescript": "^5.9.0",
-    "lodash": "^4.17.20",
-    "@types/lodash": "^4.17.20"
+    "typescript": "^5.9.0"
   },
   "description": "",
   "main": "index.js",

@@ -2,7 +2,6 @@ import fs from 'node:fs'
 import path from 'node:path'
 import minimist from 'minimist'
 import {CmdArgs} from "@gdframe/pkg-json/type";
-import _ from "lodash";
 
 export class PkgJson {
     args: CmdArgs
@@ -24,7 +23,7 @@ export class PkgJson {
                 const packageJson = require(pkgJsonPath)
                 const packageJs = require(pkgJsPath)
 
-                if (!packageJs || !_.isFunction(packageJs)) {
+                if (!packageJs || typeof packageJs !== 'function') {
                     throw new Error(`expect ${pkgJsPath} to export a function`)
                 }
 
