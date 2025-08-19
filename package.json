@@ -1,0 +1,26 @@
+{
+  "name": "@gd/pkg-json",
+  "version": "0.1.1",
+  "author": "hotcacao1991",
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "gd-pkg-json": "dist/bin/PkgJsonRunner.js"
+  },
+  "scripts": {
+    "build": "tsc && tsc-alias",
+    "watch": "tsc --watch && tsc-alias --watch",
+    "clean": "tsc --build --clean"
+  },
+  "devDependencies": {
+    "@types/minimist": "1.2.5",
+    "@types/node": "^24.3.0",
+    "concurrently": "^8.2.0",
+    "minimist": "^1.2.8",
+    "ts-node": "^10.9.0",
+    "tsc-alias": "^1.8.0",
+    "typescript": "^5.9.0",
+    "lodash": "^4.17.20",
+    "@types/lodash": "^4.17.20"
+  }
+}
