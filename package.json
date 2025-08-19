@@ -26,12 +26,12 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hotcacao/gd-pkg-json.git"
+    "url": "git+https://github.com/hotcacao/gd-frame-pkg-json.git"
   },
   "bugs": {
-    "url": "https://github.com/hotcacao/gd-pkg-json/issues"
+    "url": "https://github.com/hotcacao/gd-frame-pkg-json/issues"
   },
-  "homepage": "https://github.com/hotcacao/gd-pkg-json",
+  "homepage": "https://github.com/hotcacao/gd-frame-pkg-json",
   "dependencies": {
     "acorn": "^8.15.0",
     "acorn-walk": "^8.3.4",
