@@ -1,4 +1,5 @@
-node_modules
-tests
-coverage
-.idea
+*
+!dist/**/*
+!package.json
+!README.md
+
