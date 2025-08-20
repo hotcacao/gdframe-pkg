@@ -3,8 +3,16 @@ import path from 'node:path'
 import {chain, each, isArray, isEmpty, set} from "lodash"
 
 export class PackageUtil {
+  private readonly verbose: boolean;
+
+  constructor(input?: { verbose?: boolean }) {
+    this.verbose = !!input?.verbose
+  }
+
   debug(...args: unknown[]) {
-    console.log(...args)
+    if (this.verbose) {
+      console.log(...args)
+    }
   }
 
   private log(...args: unknown[]) {
@@ -12,7 +20,7 @@ export class PackageUtil {
   }
 
   private error(...args: unknown[]) {
-    console.log(...args);
+    console.error(...args);
   }
 
   addLocalPackageDeps(deps: Record<string, string>, path = 'dependencies') {

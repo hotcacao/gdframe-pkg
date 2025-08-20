@@ -11,8 +11,10 @@ const filters = chain(filtersArgs).map(e => {
 }).value()
 
 const dryRun = args['dryRun'] === 1
+const verbose = args['verbose'] === 1
 
 const runner = new PkgDeps({
-  filters
+  filters,
+  verbose,
 })
 runner.run({dryRun})

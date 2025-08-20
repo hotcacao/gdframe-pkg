@@ -11,21 +11,21 @@ export class PkgDeps {
   filters: PkgDepsFilters;
   pkgUtil: PackageUtil
 
-  constructor(input: { filters?: PkgDepsFilters }) {
+  constructor(input: { filters?: PkgDepsFilters, verbose?: boolean }) {
     const filters = input?.filters;
     this.filters = isEmpty(filters) ? FalseFilters : filters
-    this.pkgUtil = new PackageUtil()
+    this.pkgUtil = new PackageUtil({
+      verbose: input?.verbose
+    })
   }
 
   collectDeps(fieldName: string) {
     const pkgName = this.pkgUtil.getPackageNameFromPackageJson()
-    console.log(">>>" + pkgName)
     if (!pkgName) {
       throw `Invalid package name: ${pkgName}`
     }
     const packages: Record<string, string> = {}
     this.recursiveParseDeps(pkgName, 'workspace', fieldName, packages)
-    console.log(packages)
     const finalPackages: Record<string, string> = chain(packages)
       .keys()
       .sort()
@@ -57,7 +57,6 @@ export class PkgDeps {
   }
 
   filterPackageName(name: string) {
-    console.log(name, this.filters)
     if (isFunction(this.filters)) {
       return this.filters(name);
     }
@@ -80,7 +79,6 @@ export class PkgDeps {
     const names = this.getDepsNames()
     const depsOn = this.collectDeps(names.depsOn)
     const devDepsOn = this.collectDeps(names.devDepsOn)
-    console.log({names, depsOn, devDepsOn})
 
     if (depsOn) {
       this.pkgUtil.installDeps(depsOn, false, dryRun)
