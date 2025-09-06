@@ -119,6 +119,7 @@ export class PackageUtil {
     }
 
     const nodeModulesPaths = option?.nodeModulesPaths ?? [
+      './',
       'node_modules',
       '../node_modules',
       '../../node_modules',
