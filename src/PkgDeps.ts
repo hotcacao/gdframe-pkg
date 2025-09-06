@@ -47,7 +47,7 @@ export class PkgDeps {
     }
     state[pkgName] = version
 
-    const deps = this.pkgUtil.parseDeps(pkgName, fieldName)
+    const deps = this.pkgUtil.parseDeps(pkgName, fieldName, {fileName: 'package.deps.json'})
     each(deps, (dVersion, dName) => {
       this.recursiveParseDeps(dName, dVersion, fieldName, state)
     })

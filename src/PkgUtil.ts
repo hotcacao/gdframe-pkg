@@ -32,16 +32,24 @@ export class PackageUtil {
   }
 
   getLocalPackageJson() {
-    const finalPath = path.resolve('./package.json')
+    return this.getLocalJsonFile('./package.json')
+  }
+
+  getLocalPackageDepsJson() {
+    return this.getLocalJsonFile('./package.deps.json')
+  }
+
+  getLocalJsonFile(name: string) {
+    const finalPath = path.resolve(name)
     if (fs.existsSync(finalPath)) {
-      const content = fs.readFileSync(`./package.json`, 'utf8')
+      const content = fs.readFileSync(name, 'utf8')
       return JSON.parse(content)
     }
     throw `File "${finalPath}" not found`
   }
 
-  writeLocalPackageJson(data: unknown) {
-    const finalPath = path.resolve('./package.json')
+  writeLocalJsonFile(name: string, data: unknown) {
+    const finalPath = path.resolve(name)
     if (fs.existsSync(finalPath)) {
       const jsonString = JSON.stringify(data, null, 2)
       fs.writeFileSync(finalPath, jsonString, 'utf-8')
@@ -50,12 +58,21 @@ export class PackageUtil {
     }
   }
 
-  getPackageJson(packageName: string, nodeModulePaths = ['node_modules']) {
+  writeLocalPackageJson(data: unknown) {
+    this.writeLocalJsonFile('./package.json', data)
+  }
+
+  writeLocalPackageDepsJson(data: unknown) {
+    this.writeLocalJsonFile('./package.deps.json', data)
+  }
+
+  getPackageJsonFile(packageName: string, fileName: string, nodeModulePaths = ['node_modules']) {
     for (const nodeModulePath of nodeModulePaths) {
       const pkgPath = `${nodeModulePath}/${packageName}`
       this.debug(`Attempt to find "${packageName}" at path: ${pkgPath}`)
-      if (fs.existsSync(pkgPath)) {
-        const content = fs.readFileSync(`${pkgPath}/package.json`, 'utf8')
+      const finalPath = `${pkgPath}/${fileName}`
+      if (fs.existsSync(finalPath)) {
+        const content = fs.readFileSync(finalPath, 'utf8')
         return JSON.parse(content)
       }
     }
@@ -96,7 +113,7 @@ export class PackageUtil {
     }
   }
 
-  parseDeps(pkgName: string, fieldName: string, option?: { nodeModulesPaths: string[] }) {
+  parseDeps(pkgName: string, fieldName: string, option?: { nodeModulesPaths?: string[], fileName?: string }) {
     if (!pkgName) {
       throw `Cannot discover package "${pkgName}" to install "${fieldName}"`
     }
@@ -108,7 +125,7 @@ export class PackageUtil {
       '../../../node_modules',
     ]
 
-    const packageJson = this.getPackageJson(pkgName, nodeModulesPaths)
+    const packageJson = this.getPackageJsonFile(pkgName, option?.fileName ?? 'package.json', nodeModulesPaths)
     return packageJson?.[fieldName] || {}
   }
 }
